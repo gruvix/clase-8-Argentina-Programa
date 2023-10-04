@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/tarea.css'>
+</head>
+<body>
+    <form>
+        <button type="button" id="agregar-salario">Agregar salario</button>
+        <button type="button" disabled id="quitar-salario">Quitar salario</button>
+        <button type="button" id="reiniciar">Reiniciar</button>
+        <button type="button" id="volver-a-selector">Volver a selector</button>
+    </form>
+    <form id="salarios">
+    </form>
+    <button type="button" class="oculto" id="calcular">Calcular</button><br>
+    <a class = "oculto" id="campos-incompletos">Llenar todos los campos con numeros</a><br>
+
+    <div id="valores-salarios" class="oculto">
+        Cantidad Salarios: <a id="cantidad"></a><br>
+        Mayor Salario: <a id="mayor-salario"></a><br>
+        Menor Salario: <a id="menor-salario"></a><br>
+        Promedio Anual: <a id="promedio-anual"></a><br>
+        Promedio Mensual: <a id="promedio-mensual"></a><br>
+    </div>
+    <script src='tarea2.js'></script>
+</body>
+</html>
+

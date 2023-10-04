@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>Page Title</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel='stylesheet' type='text/css' media='screen' href='css/tarea.css'>
+</head>
+<body>
+    <form>
+        <label for="cantidad-personas">Personas en el grupo familiar:</label>
+        <input size="9" type="number" id="cantidad-personas" placeholder="Ej: 6"/>
+        <button type="button" id="siguiente">Siguiente</button>
+        <button type="button" id="reiniciar">Reiniciar</button>
+        <button type="button" id="volver-a-selector">Volver a selector</button>
+    </form>
+    <form id="personas">
+    </form>
+    <button type="button" class="oculto" id="calcular">Calcular</button><br>
+    <a class = "oculto" id="campos-incompletos">Llenar todos los campos con numeros</a><br>
+    <a class = "oculto" id="campos-decimales">Las edades no pueden tener decimales</a><br>
+
+    <div id="valores-edad" class="oculto">
+        Mayor Edad: <a id="mayor-edad"></a><br>
+        Menor Edad: <a id="menor-edad"></a><br>
+        Promedio: <a id="promedio-edad"></a><br>
+    </div>
+
+    <script src='tarea1.js'></script>
+    <script src='tarea1pruebas.js'></script>
+</body>
+</html>
