@@ -9,7 +9,7 @@ document.querySelector("#siguiente").addEventListener("click", function () {
 })
 
 document.querySelector("#calcular").addEventListener("click", function () {
-    if(validarInputsEdades(document.querySelectorAll(".persona"))) {
+    if(validarEdades(document.querySelectorAll(".persona"))) {
         datos = calcularValores()
         actualizarValores(datos)
 }
@@ -18,9 +18,9 @@ document.querySelector("#calcular").addEventListener("click", function () {
 document.querySelector("#reiniciar").addEventListener("click", function () {reiniciarInputs()})
 
 let datos = {
-    maximo: 0,
-    minimo: 0,
-    promedio: 0
+    'mayor-edad': 0,
+    'menor-edad': 0,
+    'promedio-edad': 0
 }
 
 function validarInputCantidad(input){
@@ -51,6 +51,30 @@ function agregarInputs(){
   document.querySelector('#calcular').className = '';
 
 }
+
+function validarEdades(gente){
+    let hayErrores = false;
+    for (let index = 0; index < gente.length; index++) {
+        const errores = validarEdad(Number(gente[index].value))
+        gente[index].className = errores ? "error" : ""
+        errores? hayErrores = true : ""
+    }
+    if(!hayErrores){
+        document.querySelector("#campos-incompletos").className = ""
+        document.querySelector("#campos-decimales").className = ""
+    }
+}
+
+function validarEdad(persona){
+    if(persona == ""){
+        return "No puede haber campos vacios"
+    }
+    if(persona % 1 != 0){
+        return "Los campos no deben tener decimales"
+    }
+    return ""
+}
+
 
 function validarInputsEdades(gente){
     let todoOk = true
@@ -91,9 +115,9 @@ function calcularValores(){
     promedio = suma/gente.length
 
     return  {
-        maximo: maximo,
-        minimo: minimo,
-        promedio: promedio
+        'mayor-edad': maximo,
+        'menor-edad': minimo,
+        'promedio-edad': promedio
     }
 }
 
@@ -104,9 +128,9 @@ function ocultarErroresEdades(){
 
 //Actualiza los valores en pantalla
 function actualizarValores(datosFuncion){
-    document.querySelector("#mayor-edad").innerText = datosFuncion.maximo
-    document.querySelector("#menor-edad").innerText = datosFuncion.minimo
-    document.querySelector("#promedio-edad").innerText = datosFuncion.promedio
+    Object.keys(datosFuncion).forEach(key => {
+        document.querySelector(`#${key}`).innerText = datosFuncion[key]
+    })
     document.querySelector("#valores-edad").className = ""
     ocultarErroresEdades()
 }
