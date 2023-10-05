@@ -45,8 +45,7 @@ function validarInputCantidad(input){
 
 //Agregar cuadros de entrada de edades del grupo familiar
 function agregarInputs(){
-    document.querySelector("#siguiente").setAttribute("disabled", "disabled")
-    document.querySelector("#cantidad-personas").setAttribute("disabled", "disabled")
+    deshabilitarInputYSiguiente()
     let cantidadPersonas = document.querySelector("#cantidad-personas").value
     for (let i = 0; i < cantidadPersonas; i++) {
         const $persona = document.createElement("input")
@@ -56,9 +55,11 @@ function agregarInputs(){
         $persona.setAttribute("placeholder", `Persona ${(i+1)}`)
         document.querySelector("#personas").appendChild($persona)
     }
-  document.querySelector('#calcular').className = '';
+  mostrarBotonCalcular()
 
 }
+
+
 
 function validarEdades(gente){
     let noHayErrores = true;
@@ -82,8 +83,7 @@ function validarEdades(gente){
         }
     }
     if(noHayErrores){
-        document.querySelector("#campos-incompletos").className = "oculto"
-        document.querySelector("#campos-decimales").className = "oculto"
+        ocultarErroresEdades()
     }
     return noHayErrores
 }
@@ -127,27 +127,59 @@ function calcularValores(gente){
     }
 }
 
+function actualizarValores(datosFuncion){
+    Object.keys(datosFuncion).forEach(key => {
+        document.querySelector(`#${key}`).innerText = datosFuncion[key]
+    })
+    ocultarErroresEdades()
+    mostrarValores()
+}
+
+function mostrarEasterEgg(){
+    document.querySelector("#easter-egg").classList.remove("oculto")
+}
+
+function ocultarEasterEgg(){
+    document.querySelector("#easter-egg").classList.add("oculto")
+}
+
+function mostrarValores(){
+    document.querySelector("#valores-edad").classList.remove("oculto")
+}
+
+function ocultarValoresEdad(){
+    document.querySelector("#valores-edad").classList.add("oculto")
+}
+
 function ocultarErroresEdades(){
     document.querySelector("#campos-incompletos").className = "oculto"
     document.querySelector("#campos-decimales").className = "oculto"
 }
 
-//Actualiza los valores en pantalla
-function actualizarValores(datosFuncion){
-    Object.keys(datosFuncion).forEach(key => {
-        document.querySelector(`#${key}`).innerText = datosFuncion[key]
-    })
-    document.querySelector("#valores-edad").className = ""
-    ocultarErroresEdades()
+function ocultarBotonCalcular(){
+    document.querySelector("#calcular").classList.add("oculto")
+}
+
+function mostrarBotonCalcular(){
+    document.querySelector("#calcular").classList.remove("oculto")
+}
+
+function habilitarInputYSiguiente(){
+    document.querySelector("#siguiente").removeAttribute("disabled")
+    document.querySelector("#cantidad-personas").removeAttribute("disabled")
+}
+function deshabilitarInputYSiguiente(){
+    document.querySelector("#siguiente").setAttribute("disabled", "disabled")
+    document.querySelector("#cantidad-personas").setAttribute("disabled", "disabled")
 }
 
 //reinicia el formulario de edades
 function reiniciarInputs(){
-    document.querySelector("#valores-edad").className = "oculto"
-    document.querySelector("#calcular").className = "oculto"
+    ocultarBotonCalcular()
+    ocultarEasterEgg()
     document.querySelector("#personas").innerHTML = ""
-    document.querySelector("#siguiente").removeAttribute("disabled")
-    document.querySelector("#cantidad-personas").removeAttribute("disabled")
+    habilitarInputYSiguiente()
+    ocultarValoresEdad()
     ocultarErroresEdades();
     ocultarErrorCantidad();
 }
