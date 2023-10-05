@@ -107,7 +107,7 @@ function mostrarBotonCalculo(){
 function reiniciar(){
     document.querySelector("#quitar-salario").setAttribute("disabled", "disabled")
     ocultarValores()
-    document.querySelector('#calcular').className = 'oculto';
+    ocultarBotonCalcular()
     salarios = document.querySelectorAll(".salario")
     salarios.forEach(salario => {
         salario.remove()
@@ -115,6 +115,9 @@ function reiniciar(){
     return 0;
 }
 
+function ocultarBotonCalcular(){
+    document.querySelector("#calcular").classList.add("oculto")
+}
 function quitarSalario(){
     salarios = document.querySelectorAll(".salario")
     salario = salarios[salarios.length-1]
