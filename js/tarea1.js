@@ -7,12 +7,11 @@ document.querySelector("#siguiente").addEventListener("click", function () {
     }
     agregarInputs();
 })
-
 document.querySelector("#calcular").addEventListener("click", function () {
-    if(validarEdades(document.querySelectorAll(".persona"))) {
+    if(validarEdades()){
         datos = calcularValores()
         actualizarValores(datos)
-}
+    }
 })
 
 document.querySelector("#reiniciar").addEventListener("click", function () {reiniciarInputs()})
@@ -45,59 +44,63 @@ function agregarInputs(){
     document.querySelector("#cantidad-personas").setAttribute("disabled", "disabled")
     let cantidadPersonas = document.querySelector("#cantidad-personas").value
     for (let i = 0; i < cantidadPersonas; i++) {
-        document.querySelector("#personas").innerHTML += `<input size="12" type="number" class="persona" placeholder="Persona ${(i+1)}"/><br>`
-        //Hay otra manera mas correcta con nodos pero me pareció interesante solucionarlo así
+        const $persona = document.createElement("input")
+        $persona.setAttribute("size", "12")
+        $persona.setAttribute("type", "number")
+        $persona.setAttribute("class", "persona")
+        $persona.setAttribute("placeholder", `Persona ${(i+1)}`)
+        document.querySelector("#personas").appendChild($persona)
     }
   document.querySelector('#calcular').className = '';
 
 }
 
-function validarEdades(gente){
-    let hayErrores = false;
+function validarEdades(){
+    const gente = document.querySelectorAll(".persona")
+    let noHayErrores = true;
     for (let index = 0; index < gente.length; index++) {
         const errores = validarEdad(Number(gente[index].value))
-        gente[index].className = errores ? "error" : ""
-        errores? hayErrores = true : ""
+
+        switch(errores){
+            case "decimal":
+                document.querySelector("#campos-decimales").className = ""
+                noHayErrores = false;
+                gente[index].classList.add("error")
+                break;
+            case "vacio":
+                document.querySelector("#campos-incompletos").className = ""
+                noHayErrores = false;
+                gente[index].classList.add("error")
+                break;
+            case "":
+                gente[index].classList.remove("error")
+
+        }
     }
-    if(!hayErrores){
-        document.querySelector("#campos-incompletos").className = ""
-        document.querySelector("#campos-decimales").className = ""
+    if(noHayErrores){
+        document.querySelector("#campos-incompletos").className = "oculto"
+        document.querySelector("#campos-decimales").className = "oculto"
     }
+    return noHayErrores
 }
 
 function validarEdad(persona){
     if(persona == ""){
-        return "No puede haber campos vacios"
+        return "vacio"
     }
     if(persona % 1 != 0){
-        return "Los campos no deben tener decimales"
+        return "decimal"
     }
     return ""
 }
 
-
-function validarInputsEdades(gente){
-    let todoOk = true
-    for (let i = 0; i < gente.length; i++) {    
-        if (Number(gente[i].value) == ""){
-            document.querySelector("#campos-incompletos").className = ""
-            todoOk = false
-        }
-        if (Number(gente[i].value) % 1 != 0){
-            document.querySelector("#campos-decimales").className = ""
-            todoOk = false
-        }
-    }
-    return todoOk
-}
-
 //Calcula maximo minimo y promedio
 function calcularValores(){
+    const gente = document.querySelectorAll(".persona");
 
-    let maximo = 0
-    let minimo = 0
-    let promedio = 0
-    let gente = document.querySelectorAll(".persona")
+    let maximo = 0;
+    let minimo = 0;
+    let promedio = 0;
 
     maximo = Number(gente[0].value)
     minimo = Number(gente[0].value)
