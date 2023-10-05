@@ -61,9 +61,13 @@ function calcular(){
 
     salarios.forEach(salario => {
         valor = Number(salario.value)
-        //evita las operaciones si el input está vacío
-        if(valor == "") {
+        //evita las operaciones si el input no tiene numeros o es negativo
+        if(valor == "" || valor < 0) {
+            salario.classList.add("error")
             return
+        }
+        else {
+            salario.classList.remove("error")
         }
         if(valor > maximo){
             maximo = valor
