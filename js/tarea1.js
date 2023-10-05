@@ -181,7 +181,9 @@ function deshabilitarInputYSiguiente(){
 
 //reinicia el formulario de edades
 function reiniciarInputs(){
-    document.querySelector("#personas").innerHTML = ""
+    document.querySelectorAll(".persona").forEach(persona => {
+        persona.remove()
+    });
     ocultarBotonCalcular()
     ocultarEasterEgg()
     habilitarInputYSiguiente()
