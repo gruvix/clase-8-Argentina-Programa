@@ -46,7 +46,7 @@ function validarInputCantidad(input){
 //Agregar cuadros de entrada de edades del grupo familiar
 function agregarInputs(){
     deshabilitarInputYSiguiente()
-    let cantidadPersonas = document.querySelector("#cantidad-personas").value
+    const cantidadPersonas = document.querySelector("#cantidad-personas").value
     for (let i = 0; i < cantidadPersonas; i++) {
         const $persona = document.createElement("input")
         $persona.setAttribute("size", "12")
@@ -55,7 +55,8 @@ function agregarInputs(){
         $persona.setAttribute("placeholder", `Persona ${(i+1)}`)
         document.querySelector("#personas").appendChild($persona)
     }
-  mostrarBotonCalcular()
+    checkForEasterEgg(Number(cantidadPersonas))
+    mostrarBotonCalcular()
 
 }
 
@@ -119,7 +120,6 @@ function calcularValores(gente){
         suma += valor
     });
     promedio = suma/gente.length
-
     return  {
         'mayor-edad': maximo,
         'menor-edad': minimo,
@@ -133,6 +133,12 @@ function actualizarValores(datosFuncion){
     })
     ocultarErroresEdades()
     mostrarValores()
+}
+
+function checkForEasterEgg(valor){
+    if(valor === 1) {
+        mostrarEasterEgg()
+    }
 }
 
 function mostrarEasterEgg(){
@@ -175,9 +181,9 @@ function deshabilitarInputYSiguiente(){
 
 //reinicia el formulario de edades
 function reiniciarInputs(){
+    document.querySelector("#personas").innerHTML = ""
     ocultarBotonCalcular()
     ocultarEasterEgg()
-    document.querySelector("#personas").innerHTML = ""
     habilitarInputYSiguiente()
     ocultarValoresEdad()
     ocultarErroresEdades();
