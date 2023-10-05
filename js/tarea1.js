@@ -8,8 +8,9 @@ document.querySelector("#siguiente").addEventListener("click", function () {
     agregarInputs();
 })
 document.querySelector("#calcular").addEventListener("click", function () {
-    if(validarEdades()){
-        datos = calcularValores()
+    const gente = document.querySelectorAll(".persona")
+    if(validarEdades(gente)){
+        datos = calcularValores(gente)
         actualizarValores(datos)
     }
 })
@@ -55,8 +56,7 @@ function agregarInputs(){
 
 }
 
-function validarEdades(){
-    const gente = document.querySelectorAll(".persona")
+function validarEdades(gente){
     let noHayErrores = true;
     for (let index = 0; index < gente.length; index++) {
         const errores = validarEdad(Number(gente[index].value))
@@ -95,8 +95,7 @@ function validarEdad(persona){
 }
 
 //Calcula maximo minimo y promedio
-function calcularValores(){
-    const gente = document.querySelectorAll(".persona");
+function calcularValores(gente){
 
     let maximo = 0;
     let minimo = 0;
