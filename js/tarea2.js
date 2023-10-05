@@ -26,11 +26,6 @@ let datos = {
     promedioMensual: 0
 }
 
-//oculta los valores
-function ocultarValores(){
-    document.querySelector("#valores-salarios").className = "oculto"
-}
-
 //actualiza los valores y los muestra
 function imprimirValores(datosSalarios){
     document.querySelector("#cantidad").textContent = `${datosSalarios.cantidad}`
@@ -57,26 +52,26 @@ function calcular(){
 
     maximo = Number(salarios[0].value)
     minimo = Number(salarios[0].value)
-    let suma = 0
+    let sumatoria = 0
 
     salarios.forEach(salario => {
         valor = Number(salario.value)
-        //evita las operaciones si el input no tiene numeros o es negativo
-        if(valor == "" || valor < 0) {
+        console.log(valor)
+
+        if(validarSalario(valor) !== ""){
             salario.classList.add("error")
-            return
         }
         else {
             salario.classList.remove("error")
+            if(valor > maximo){
+                maximo = valor
+            }
+            if(valor < minimo){
+                minimo = valor
+            }
+            contador++
+            sumatoria += valor
         }
-        if(valor > maximo){
-            maximo = valor
-        }
-        if(valor < minimo){
-            minimo = valor
-        }
-        contador++
-        suma += valor
     });
     //retorna 0s si todos los inputs están vacíos
     if (contador === 0) {
@@ -88,7 +83,7 @@ function calcular(){
             promedioMensual: 0
         }
     }
-    promedioAnual = suma/contador
+    promedioAnual = sumatoria/contador
     promedioMensual = promedioAnual/12
 
     return  {
@@ -99,7 +94,15 @@ function calcular(){
         promedioMensual: promedioMensual.toFixed(2)
     }
 }
-
+function validarSalario(valor){
+    if(valor <= 0){
+        return "el salario debe ser mayor a 0"
+    }
+    if(!/^[0-9]+$/.test(valor)){
+        return "el salario debe estar en numeros"
+    }
+    return ""
+}
 function reiniciar(){
     document.querySelector("#quitar-salario").setAttribute("disabled", "disabled")
     ocultarValores()
@@ -109,6 +112,9 @@ function reiniciar(){
         salario.remove()
     });  
     return 0;
+}
+function ocultarValores(){
+    document.querySelector("#valores-salarios").className = "oculto"
 }
 
 function ocultarBotonCalcular(){
