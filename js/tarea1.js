@@ -2,8 +2,11 @@
 document.querySelector("#siguiente").addEventListener("click", function () {
     let resultado = validarInputCantidad(Number(document.querySelector("#cantidad-personas").value))
     if(resultado != ""){
-        alert(resultado)
+        document.querySelector("#error-cantidad").textContent = resultado;
         return
+    }
+    else{
+        ocultarErrorCantidad()
     }
     agregarInputs();
 })
@@ -23,6 +26,10 @@ let datos = {
     'promedio-edad': 0
 }
 
+function ocultarErrorCantidad(){
+    document.querySelector("#error-cantidad").textContent = ""
+}
+
 function validarInputCantidad(input){
     if(input < 1){
         return "el valor debe ser igual o mayor a 1"
@@ -32,9 +39,6 @@ function validarInputCantidad(input){
     }
     if(input % 1 != 0){
         return "el valor no debe tener decimales"
-    }
-    if(input == ""){
-        return "el valor no puede estar vacío" 
     }
     return ""
 }
@@ -144,7 +148,8 @@ function reiniciarInputs(){
     document.querySelector("#personas").innerHTML = ""
     document.querySelector("#siguiente").removeAttribute("disabled")
     document.querySelector("#cantidad-personas").removeAttribute("disabled")
-    ocultarErroresEdades()
+    ocultarErroresEdades();
+    ocultarErrorCantidad();
 }
 
 
