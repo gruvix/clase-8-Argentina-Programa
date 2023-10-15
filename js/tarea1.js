@@ -13,7 +13,7 @@ document.querySelector("#siguiente").addEventListener("click", function () {
 document.querySelector("#calcular").addEventListener("click", function () {
     const gente = document.querySelectorAll(".persona")
     if(validarEdades(gente)){
-        datos = calcularValores(gente)
+        datos = calcularMaximoMinimoYPromedio(gente)
         actualizarValores(datos)
     }
 })
@@ -30,7 +30,7 @@ function ocultarErrorCantidad(){
     document.querySelector("#error-cantidad").textContent = ""
 }
 
-function validarInputCantidad(input){
+function validarCantidadFamiliares(input){
     if(input < 1){
         return "el valor debe ser igual o mayor a 1"
     }
@@ -40,7 +40,6 @@ function validarInputCantidad(input){
     if(input % 1 != 0){
         return "el valor no debe tener decimales"
     }
-    return ""
 }
 
 //Agregar cuadros de entrada de edades del grupo familiar
@@ -98,9 +97,7 @@ function validarEdad(persona){
     }
     return ""
 }
-
-//Calcula maximo minimo y promedio
-function calcularValores(gente){
+function calcularMaximoMinimoYPromedio(gente){
 
     let maximo = 0;
     let minimo = 0;
