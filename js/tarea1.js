@@ -89,6 +89,9 @@ function validarEdades(gente){
     if(noHayErrores){
         ocultarErroresEdades()
     }
+    else{
+        mostrarErroresEdades()
+    }
     return noHayErrores
 }
 
@@ -159,8 +162,12 @@ function mostrarValores(){
 function ocultarValoresEdad(){
     document.querySelector("#valores-edad").classList.add("oculto")
 }
-
+function mostrarErroresEdades(){
+    document.querySelector("#contenedor-errores").classList.remove("oculto");
+    
+}
 function ocultarErroresEdades(){
+    document.querySelector("#contenedor-errores").classList.add("oculto");
     document.querySelector("#campos-incompletos").className = "oculto"
     document.querySelector("#campos-decimales").className = "oculto"
 }
