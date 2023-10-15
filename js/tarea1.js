@@ -10,6 +10,7 @@ document.querySelector("#siguiente").addEventListener("click", function () {
     else{
         ocultarErrorCantidad()
     }
+    mostrarInputsEdades()
     agregarInputs();
 })
 document.querySelector("#calcular").addEventListener("click", function () {
@@ -22,12 +23,19 @@ document.querySelector("#calcular").addEventListener("click", function () {
 
 document.querySelector("#reiniciar").addEventListener("click", function () {
     reiniciarInputs()
+    ocultarInputsEdades()
 })
 
 let datos = {
     'mayor-edad': 0,
     'menor-edad': 0,
     'promedio-edad': 0
+}
+function mostrarInputsEdades(){
+    document.querySelector("#contenedor-personas").classList.remove("oculto")
+}
+function ocultarInputsEdades(){
+    document.querySelector("#contenedor-personas").classList.add("oculto")
 }
 function mostrarErrorCantidad(){
     document.querySelector("#contenedor-error-cantidad").classList.remove("oculto")
