@@ -1,8 +1,9 @@
 
 document.querySelector("#siguiente").addEventListener("click", function () {
-    let resultado = validarInputCantidad(Number(document.querySelector("#cantidad-personas").value))
-    if(resultado != ""){
-        document.querySelector("#error-cantidad").textContent = resultado;
+    const cantidadFamiliares = Number(document.querySelector("#cantidad-personas").value)
+    let error = validarCantidadFamiliares(cantidadFamiliares)
+    if(error){
+        document.querySelector("#error-cantidad").textContent = error;
         return
     }
     else{
