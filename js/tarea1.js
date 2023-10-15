@@ -41,7 +41,6 @@ function validarInputCantidad(input){
     if(input % 1 != 0){
         return "el valor no debe tener decimales"
     }
-    return ""
 }
 
 //Agregar cuadros de entrada de edades del grupo familiar
