@@ -4,6 +4,7 @@ document.querySelector("#siguiente").addEventListener("click", function () {
     let error = validarCantidadFamiliares(cantidadFamiliares)
     if(error){
         document.querySelector("#error-cantidad").textContent = error;
+        mostrarErrorCantidad()
         return
     }
     else{
@@ -28,8 +29,12 @@ let datos = {
     'menor-edad': 0,
     'promedio-edad': 0
 }
-
+function mostrarErrorCantidad(){
+    document.querySelector("#contenedor-error-cantidad").classList.remove("oculto")
+}
 function ocultarErrorCantidad(){
+    document.querySelector("#contenedor-error-cantidad").classList.add("oculto")
+
     document.querySelector("#error-cantidad").textContent = ""
 }
 
