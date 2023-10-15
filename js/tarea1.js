@@ -31,7 +31,7 @@ function ocultarErrorCantidad(){
     document.querySelector("#error-cantidad").textContent = ""
 }
 
-function validarInputCantidad(input){
+function validarCantidadFamiliares(input){
     if(input < 1){
         return "el valor debe ser igual o mayor a 1"
     }
