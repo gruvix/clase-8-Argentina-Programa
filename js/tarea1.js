@@ -67,7 +67,8 @@ function agregarInputs(){
 function validarEdades(gente){
     let noHayErrores = true;
     for (let index = 0; index < gente.length; index++) {
-        const errores = validarEdad(Number(gente[index].value))
+        const edad = Number(gente[index].value)
+        const errores = validarEdad(edad)
 
         switch(errores){
             case "decimal":
