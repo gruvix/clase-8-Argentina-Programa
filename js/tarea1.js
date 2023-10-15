@@ -12,7 +12,7 @@ document.querySelector("#siguiente").addEventListener("click", function () {
     agregarInputs();
 })
 document.querySelector("#calcular").addEventListener("click", function () {
-    const gente = document.querySelectorAll(".persona")
+    const gente = document.querySelectorAll(".input-group-text")
     if(validarEdades(gente)){
         datos = calcularValores(gente)
         actualizarValores(datos)
@@ -51,7 +51,7 @@ function agregarInputs(){
         const $persona = document.createElement("input")
         $persona.setAttribute("size", "12")
         $persona.setAttribute("type", "number")
-        $persona.setAttribute("class", "persona")
+        $persona.setAttribute("class", "input-group-text")
         $persona.setAttribute("placeholder", `Persona ${(i+1)}`)
         document.querySelector("#personas").appendChild($persona)
     }
