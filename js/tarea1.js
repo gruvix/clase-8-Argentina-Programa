@@ -19,7 +19,9 @@ document.querySelector("#calcular").addEventListener("click", function () {
     }
 })
 
-document.querySelector("#reiniciar").addEventListener("click", function () {reiniciarInputs()})
+document.querySelector("#reiniciar").addEventListener("click", function () {
+    reiniciarInputs()
+})
 
 let datos = {
     'mayor-edad': 0,
@@ -181,7 +183,7 @@ function deshabilitarInputYSiguiente(){
 
 //reinicia el formulario de edades
 function reiniciarInputs(){
-    document.querySelectorAll(".persona").forEach(persona => {
+    document.querySelectorAll(".input-group-text").forEach(persona => {
         persona.remove()
     });
     ocultarBotonCalcular()
