@@ -15,7 +15,7 @@ document.querySelector("#siguiente").addEventListener("click", function () {
 })
 document.querySelector("#calcular").addEventListener("click", function () {
     const gente = document.querySelectorAll(".input-group-text")
-    if(validarEdades(gente)){
+    if(manejarErrorEdades(gente)){
         maximoMinimoYPromedio = calcularMaximoMinimoYPromedio(gente)
         actualizarMaximoMinimoYPromedio(maximoMinimoYPromedio)
     }
@@ -77,7 +77,7 @@ function agregarInputsEdades(){
 
 
 
-function validarEdades(gente){
+function manejarErrorEdades(gente){
     let noHayErrores = true;
     for (let index = 0; index < gente.length; index++) {
         const edad = Number(gente[index].value)
