@@ -15,7 +15,7 @@ document.querySelector("#siguiente").addEventListener("click", function () {
 })
 document.querySelector("#calcular").addEventListener("click", function () {
     const gente = document.querySelectorAll(".input-group-text")
-    if(manejarErroresEdades(gente)){
+    if(!manejarErroresEdades(gente)){
         maximoMinimoYPromedio = calcularMaximoMinimoYPromedio(gente)
         actualizarMaximoMinimoYPromedio(maximoMinimoYPromedio)
     }
@@ -81,7 +81,7 @@ function agregarInputsEdades(){
 
 
 function manejarErroresEdades(gente){
-    let noHayErrores = true;
+    let hayErrores = false;
     ocultarErroresEdades()
     for (let index = 0; index < gente.length; index++) {
         const edad = Number(gente[index].value)
@@ -90,12 +90,12 @@ function manejarErroresEdades(gente){
         switch(error){
             case "decimal":
                 document.querySelector("#campos-decimales").className = ""
-                noHayErrores = false;
+                hayErrores = true;
                 gente[index].classList.add("error")
                 break;
             case "vacio":
                 document.querySelector("#campos-incompletos").className = ""
-                noHayErrores = false;
+                hayErrores = true;
                 gente[index].classList.add("error")
                 break;
             case "":
@@ -103,13 +103,10 @@ function manejarErroresEdades(gente){
                 break;
         }
     }
-    if(noHayErrores){
-        ocultarErroresEdades()
-    }
-    else{
+    if(hayErrores){
         mostrarErroresEdades()
     }
-    return noHayErrores
+    return hayErrores
 }
 
 function validarEdad(edad){
