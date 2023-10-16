@@ -161,19 +161,15 @@ function checkForEasterEgg(valor){
         mostrarEasterEgg()
     }
 }
-
 function mostrarEasterEgg(){
     document.querySelector("#easter-egg").classList.remove("oculto")
 }
-
 function ocultarEasterEgg(){
     document.querySelector("#easter-egg").classList.add("oculto")
 }
-
 function mostrarMaximoMinimoYPromedio(){
     document.querySelector("#valores-edad").classList.remove("oculto")
 }
-
 function ocultarValoresEdad(){
     document.querySelector("#valores-edad").classList.add("oculto")
 }
@@ -186,15 +182,12 @@ function ocultarErroresEdades(){
     document.querySelector("#campos-incompletos").className = "oculto"
     document.querySelector("#campos-decimales").className = "oculto"
 }
-
 function ocultarBotonCalcular(){
     document.querySelector("#calcular").classList.add("oculto")
 }
-
 function mostrarBotonCalcular(){
     document.querySelector("#calcular").classList.remove("oculto")
 }
-
 function habilitarCantidadYSiguiente(){
     document.querySelector("#siguiente").removeAttribute("disabled")
     document.querySelector("#cantidad-personas").removeAttribute("disabled")
@@ -216,14 +209,12 @@ function reiniciarFormulario(){
     ocultarErrorCantidad();
 }
 
-
 //funcion con boton de volver a menu de seleccion
 const $botonVolverASelector = document.querySelector("#volver-a-selector")
 $botonVolverASelector.addEventListener("click", volverASelector) 
 function volverASelector(){
     window.location = "index.html"
 }
-
 
 /*
 TAREA: Empezar preguntando cuánta gente hay en el grupo familiar.
