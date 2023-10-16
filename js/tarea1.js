@@ -22,7 +22,7 @@ document.querySelector("#calcular").addEventListener("click", function () {
 })
 
 document.querySelector("#reiniciar").addEventListener("click", function () {
-    reiniciarInputs()
+    reiniciarFormulario()
     ocultarInputsEdades()
 })
 
@@ -205,8 +205,7 @@ function deshabilitarCantidadYSiguiente(){
     document.querySelector("#cantidad-personas").setAttribute("disabled", "disabled")
 }
 
-//reinicia el formulario de edades
-function reiniciarInputs(){
+function reiniciarFormulario(){
     document.querySelectorAll(".input-group-text").forEach(persona => {
         persona.remove()
     });
