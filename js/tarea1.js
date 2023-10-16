@@ -14,8 +14,8 @@ document.querySelector("#siguiente").addEventListener("click", function () {
     agregarInputsEdades();
 })
 document.querySelector("#calcular").addEventListener("click", function () {
-    const gente = document.querySelectorAll(".input-group-text")
-    if(!manejarErroresEdades(gente)){
+    const error = manejarErroresEdades()
+    if(!error){
         maximoMinimoYPromedio = calcularMaximoMinimoYPromedio(gente)
         actualizarMaximoMinimoYPromedio(maximoMinimoYPromedio)
     }
@@ -78,36 +78,35 @@ function agregarInputsEdades(){
 
 }
 
-
-
-function manejarErroresEdades(gente){
-    let hayErrores = false;
+function manejarErroresEdades(){
+    let error = false;
+    const inputsEdades = document.querySelectorAll(".input-group-text")
     ocultarErroresEdades()
-    for (let index = 0; index < gente.length; index++) {
-        const edad = Number(gente[index].value)
+    for (let index = 0; index < inputsEdades.length; index++) {
+        const edad = Number(inputsEdades[index].value)
         const error = validarEdad(edad)
 
         switch(error){
             case "decimal":
                 document.querySelector("#campos-decimales").className = ""
-                hayErrores = true;
-                gente[index].classList.add("error")
+                error = true;
+                inputsEdades[index].classList.add("error")
                 break;
             case "vacio":
                 document.querySelector("#campos-incompletos").className = ""
-                hayErrores = true;
-                gente[index].classList.add("error")
+                error = true;
+                inputsEdades[index].classList.add("error")
                 break;
             case "":
-                gente[index].classList.remove("error")
+                inputsEdades[index].classList.remove("error")
                 break;
         }
     }
-    if(hayErrores){
+    if(error){
         mostrarErroresEdades()
         ocultarValoresEdad()
     }
-    return hayErrores
+    return error
 }
 
 function validarEdad(edad){
