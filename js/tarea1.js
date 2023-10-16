@@ -11,13 +11,13 @@ document.querySelector("#siguiente").addEventListener("click", function () {
         ocultarErrorCantidad()
     }
     mostrarInputsEdades()
-    agregarInputs();
+    agregarInputsEdades();
 })
 document.querySelector("#calcular").addEventListener("click", function () {
     const gente = document.querySelectorAll(".input-group-text")
     if(validarEdades(gente)){
-        datos = calcularValores(gente)
-        actualizarValores(datos)
+        maximoMinimoYPromedio = calcularMaximoMinimoYPromedio(gente)
+        actualizarMaximoMinimoYPromedio(maximoMinimoYPromedio)
     }
 })
 
@@ -26,7 +26,7 @@ document.querySelector("#reiniciar").addEventListener("click", function () {
     ocultarInputsEdades()
 })
 
-let datos = {
+let maximoMinimoYPromedio = {
     'mayor-edad': 0,
     'menor-edad': 0,
     'promedio-edad': 0
@@ -46,21 +46,21 @@ function ocultarErrorCantidad(){
     document.querySelector("#error-cantidad").textContent = ""
 }
 
-function validarCantidadFamiliares(input){
-    if(input < 1){
+function validarCantidadFamiliares(cantidad){
+    if(cantidad < 1){
         return "el valor debe ser igual o mayor a 1"
     }
-    if(input >= 100){
+    if(cantidad >= 100){
         return "el valor debe ser menor de 100"
     }
-    if(input % 1 != 0){
+    if(cantidad % 1 != 0){
         return "el valor no debe tener decimales"
     }
 }
 
 //Agregar cuadros de entrada de edades del grupo familiar
-function agregarInputs(){
-    deshabilitarInputYSiguiente()
+function agregarInputsEdades(){
+    deshabilitarCantidadYSiguiente()
     const cantidadPersonas = document.querySelector("#cantidad-personas").value
     for (let i = 0; i < cantidadPersonas; i++) {
         const $persona = document.createElement("input")
@@ -108,27 +108,26 @@ function validarEdades(gente){
     return noHayErrores
 }
 
-function validarEdad(persona){
-    if(persona == ""){
+function validarEdad(edad){
+    if(edad == ""){
         return "vacio"
     }
-    if(persona % 1 != 0){
+    if(edad % 1 != 0){
         return "decimal"
     }
     return ""
 }
 
-//Calcula maximo minimo y promedio
-function calcularValores(gente){
+function calcularMaximoMinimoYPromedio(edades){
 
     let maximo = 0;
     let minimo = 0;
     let promedio = 0;
 
-    maximo = Number(gente[0].value)
-    minimo = Number(gente[0].value)
+    maximo = Number(edades[0].value)
+    minimo = Number(edades[0].value)
     let suma = 0
-    gente.forEach(persona => {
+    edades.forEach(persona => {
         valor = Number(persona.value)
         if(persona.value > maximo){
             maximo = valor
@@ -138,7 +137,7 @@ function calcularValores(gente){
         }
         suma += valor
     });
-    promedio = suma/gente.length
+    promedio = suma/edades.length
     return  {
         'mayor-edad': maximo,
         'menor-edad': minimo,
@@ -146,12 +145,12 @@ function calcularValores(gente){
     }
 }
 
-function actualizarValores(datosFuncion){
-    Object.keys(datosFuncion).forEach(key => {
-        document.querySelector(`#${key}`).innerText = datosFuncion[key]
+function actualizarMaximoMinimoYPromedio(maximoMinimoYPromedio){
+    Object.keys(maximoMinimoYPromedio).forEach(key => {
+        document.querySelector(`#${key}`).innerText = maximoMinimoYPromedio[key]
     })
     ocultarErroresEdades()
-    mostrarValores()
+    mostrarMaximoMinimoYPromedio()
 }
 
 function checkForEasterEgg(valor){
@@ -168,7 +167,7 @@ function ocultarEasterEgg(){
     document.querySelector("#easter-egg").classList.add("oculto")
 }
 
-function mostrarValores(){
+function mostrarMaximoMinimoYPromedio(){
     document.querySelector("#valores-edad").classList.remove("oculto")
 }
 
@@ -193,11 +192,11 @@ function mostrarBotonCalcular(){
     document.querySelector("#calcular").classList.remove("oculto")
 }
 
-function habilitarInputYSiguiente(){
+function habilitarCantidadYSiguiente(){
     document.querySelector("#siguiente").removeAttribute("disabled")
     document.querySelector("#cantidad-personas").removeAttribute("disabled")
 }
-function deshabilitarInputYSiguiente(){
+function deshabilitarCantidadYSiguiente(){
     document.querySelector("#siguiente").setAttribute("disabled", "disabled")
     document.querySelector("#cantidad-personas").setAttribute("disabled", "disabled")
 }
@@ -209,7 +208,7 @@ function reiniciarInputs(){
     });
     ocultarBotonCalcular()
     ocultarEasterEgg()
-    habilitarInputYSiguiente()
+    habilitarCantidadYSiguiente()
     ocultarValoresEdad()
     ocultarErroresEdades();
     ocultarErrorCantidad();
