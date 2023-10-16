@@ -105,6 +105,7 @@ function manejarErroresEdades(gente){
     }
     if(hayErrores){
         mostrarErroresEdades()
+        ocultarValoresEdad()
     }
     return hayErrores
 }
