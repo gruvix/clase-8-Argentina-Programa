@@ -47,13 +47,16 @@ function ocultarErrorCantidad(){
 }
 
 function validarCantidadFamiliares(cantidad){
-    if(cantidad < 1){
+    const MIN_CANTIDAD = 1
+    const MAX_CANTIDAD = 100
+    const DECIMAL_PERMITIDO = 1
+    if(cantidad < MIN_CANTIDAD){
         return "el valor debe ser igual o mayor a 1"
     }
-    if(cantidad >= 100){
+    if(cantidad >= MAX_CANTIDAD){
         return "el valor debe ser menor de 100"
     }
-    if(cantidad % 1 != 0){
+    if(cantidad % DECIMAL_PERMITIDO != 0){
         return "el valor no debe tener decimales"
     }
 }
@@ -109,10 +112,11 @@ function manejarErroresEdades(gente){
 }
 
 function validarEdad(edad){
+    const DECIMAL_PERMITIDO = 1
     if(edad == ""){
         return "vacio"
     }
-    if(edad % 1 != 0){
+    if(edad % DECIMAL_PERMITIDO != 0){
         return "decimal"
     }
     return ""
