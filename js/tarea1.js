@@ -82,11 +82,12 @@ function agregarInputsEdades(){
 
 function manejarErroresEdades(gente){
     let noHayErrores = true;
+    ocultarErroresEdades()
     for (let index = 0; index < gente.length; index++) {
         const edad = Number(gente[index].value)
-        const errores = validarEdad(edad)
+        const error = validarEdad(edad)
 
-        switch(errores){
+        switch(error){
             case "decimal":
                 document.querySelector("#campos-decimales").className = ""
                 noHayErrores = false;
@@ -99,7 +100,7 @@ function manejarErroresEdades(gente){
                 break;
             case "":
                 gente[index].classList.remove("error")
-
+                break;
         }
     }
     if(noHayErrores){
