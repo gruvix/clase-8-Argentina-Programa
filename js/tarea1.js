@@ -84,17 +84,17 @@ function manejarErroresEdades(){
     ocultarErroresEdades()
     for (let index = 0; index < inputsEdades.length; index++) {
         const edad = Number(inputsEdades[index].value)
-        const error = validarEdad(edad)
+        const errorEdad = validarEdad(edad)
 
-        switch(error){
+        switch(errorEdad){
             case "decimal":
                 document.querySelector("#campos-decimales").className = ""
-                error = true;
+                errorEdad = true;
                 inputsEdades[index].classList.add("error")
                 break;
             case "vacio":
                 document.querySelector("#campos-incompletos").className = ""
-                error = true;
+                errorEdad = true;
                 inputsEdades[index].classList.add("error")
                 break;
             case "":
