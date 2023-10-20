@@ -89,12 +89,12 @@ function manejarErroresEdades(){
         switch(errorEdad){
             case "decimal":
                 document.querySelector("#campos-decimales").className = ""
-                errorEdad = true;
+                error = true;
                 inputsEdades[index].classList.add("error")
                 break;
             case "vacio":
                 document.querySelector("#campos-incompletos").className = ""
-                errorEdad = true;
+                error = true;
                 inputsEdades[index].classList.add("error")
                 break;
             case "":
