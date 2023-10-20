@@ -16,7 +16,7 @@ document.querySelector("#siguiente").addEventListener("click", function () {
 document.querySelector("#calcular").addEventListener("click", function () {
     const error = manejarErroresEdades()
     if(!error){
-        maximoMinimoYPromedio = calcularMaximoMinimoYPromedio(gente)
+        maximoMinimoYPromedio = calcularMaximoMinimoYPromedio()
         actualizarMaximoMinimoYPromedio(maximoMinimoYPromedio)
     }
 })
@@ -120,16 +120,16 @@ function validarEdad(edad){
     return ""
 }
 
-function calcularMaximoMinimoYPromedio(edades){
-
+function calcularMaximoMinimoYPromedio(){
+    const $edades = document.querySelectorAll('.input-group-text')
     let maximo = 0;
     let minimo = 0;
     let promedio = 0;
 
-    maximo = Number(edades[0].value)
-    minimo = Number(edades[0].value)
+    maximo = Number($edades[0].value)
+    minimo = Number($edades[0].value)
     let suma = 0
-    edades.forEach(persona => {
+    $edades.forEach(persona => {
         valor = Number(persona.value)
         if(persona.value > maximo){
             maximo = valor
@@ -139,7 +139,7 @@ function calcularMaximoMinimoYPromedio(edades){
         }
         suma += valor
     });
-    promedio = suma/edades.length
+    promedio = suma/$edades.length
     return  {
         'mayor-edad': maximo,
         'menor-edad': minimo,
