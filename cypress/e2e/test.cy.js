@@ -20,6 +20,15 @@ describe('template spec', () => {
     cy.get('#easter-egg').should('be.visible');
   })
 
+  it(`deja una edad con un decimal y espera un error`, () => {
+    const CANTIDAD = 1;
+    const DECIMAL = 1.5;
+    cy.visit(TAREA1).get("#cantidad-personas").type(CANTIDAD).get('#siguiente').click();
+    cy.get('.input-group-text').type(DECIMAL);
+    cy.get('#calcular').click();
+    cy.get('#campos-decimales').should('be.visible');
+  })
+
   it(`deja una edad vacía y espera un error`, () => {
     const CANTIDAD = 1;
     cy.visit(TAREA1).get("#cantidad-personas").type(CANTIDAD).get('#siguiente').click().get('#calcular').click();
