@@ -41,8 +41,8 @@ describe('template spec', () => {
       }
     })
     cy.get('#calcular').click();
-    cy.get('#menor-edad').should('have.text', CANTIDAD-1);
     cy.get('#mayor-edad').should('have.text', CANTIDAD+1);
+    cy.get('#menor-edad').should('have.text', CANTIDAD-1);
     cy.get('#promedio-edad').should('have.text', CANTIDAD);
   })
 
