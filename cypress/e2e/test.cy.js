@@ -1,4 +1,4 @@
-describe('template spec', () => {
+describe('Pruebas de tarea 1', () => {
   const TAREA1 = 'http://localhost:8000/tarea1'
 
   it('agrega 0 en la cantidad de personas y espera un error', () => {
