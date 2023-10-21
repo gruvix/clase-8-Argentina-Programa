@@ -20,6 +20,12 @@ describe('template spec', () => {
     cy.get('#easter-egg').should('be.visible');
   })
 
+  it(`deja una edad vacía y espera un error`, () => {
+    const CANTIDAD = 1;
+    cy.visit(TAREA1).get("#cantidad-personas").type(CANTIDAD).get('#siguiente').click().get('#calcular').click();
+    cy.get('#campos-incompletos').should('be.visible');
+  })
+
   it('agrega 5 edades las rellena y las evalua', () => {
     const CANTIDAD = 5;
     cy.visit(TAREA1).get("#cantidad-personas").type(CANTIDAD).get('#siguiente').click();
