@@ -7,6 +7,12 @@ describe('template spec', () => {
     cy.get('#error-cantidad').should('have.text', 'el valor debe ser igual o mayor a 1');
   })
 
+  it('agrega 101 en la cantidad de personas y espera un error', () => {
+    const CANTIDAD = 101;
+    cy.visit(TAREA1).get("#cantidad-personas").type(CANTIDAD).get('#siguiente').click();
+    cy.get('#error-cantidad').should('have.text', 'el valor debe ser menor de 100');
+  })
+
   it(`agrega 1 en la cantidad de personas y chekea el easter egg`, () => {
     const CANTIDAD = 1;
     cy.visit(TAREA1).get("#cantidad-personas").type(CANTIDAD).get('#siguiente').click();
