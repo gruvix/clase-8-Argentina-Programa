@@ -37,7 +37,7 @@ describe('Pruebas de tarea 1', () => {
     cy.get('#campos-incompletos').should('be.visible');
   })
 
-  it('agrega 5 edades las rellena y las evalua', () => {
+  it('Debería mostrar la edad promedio, menor y mayor', () => {
     const CANTIDAD_PERSONAS = 5;
     cy.get("#cantidad-personas").type(CANTIDAD_PERSONAS).get('#siguiente').click();
     cy.get('.input-group-text').should('have.length', CANTIDAD_PERSONAS).each(($edad, index) => {
