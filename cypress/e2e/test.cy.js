@@ -16,9 +16,9 @@ describe('Pruebas de tarea 1', () => {
   })
 
   it(`Debería mostrar el easter egg si se ingresa una sola persona en la cantidad`, () => {
-    const CANTIDAD = 1;
-    cy.get("#cantidad-personas").type(CANTIDAD).get('#siguiente').click();
-    cy.get('.input-group-text').should('have.length', CANTIDAD);
+    const CANTIDAD_PERSONAS = 1;
+    cy.get("#cantidad-personas").type(CANTIDAD_PERSONAS).get('#siguiente').click();
+    cy.get('.input-group-text').should('have.length', CANTIDAD_PERSONAS);
     cy.get('#easter-egg').should('be.visible');
   })
 
@@ -32,29 +32,29 @@ describe('Pruebas de tarea 1', () => {
   })
 
   it(`Debería mostrar un error si se deja un campo de edad vacío al realizar los cálculos`, () => {
-    const CANTIDAD = 1;
-    cy.get("#cantidad-personas").type(CANTIDAD).get('#siguiente').click().get('#calcular').click();
+    const CANTIDAD_PERSONAS = 1;
+    cy.get("#cantidad-personas").type(CANTIDAD_PERSONAS).get('#siguiente').click().get('#calcular').click();
     cy.get('#campos-incompletos').should('be.visible');
   })
 
   it('agrega 5 edades las rellena y las evalua', () => {
-    const CANTIDAD = 5;
-    cy.get("#cantidad-personas").type(CANTIDAD).get('#siguiente').click();
-    cy.get('.input-group-text').should('have.length', CANTIDAD).each(($edad, index) => {
+    const CANTIDAD_PERSONAS = 5;
+    cy.get("#cantidad-personas").type(CANTIDAD_PERSONAS).get('#siguiente').click();
+    cy.get('.input-group-text').should('have.length', CANTIDAD_PERSONAS).each(($edad, index) => {
       if(index === 0){
-        cy.wrap($edad).type(CANTIDAD-1);
+        cy.wrap($edad).type(CANTIDAD_PERSONAS-1);
       }
-      else if(index === CANTIDAD-1){
-        cy.wrap($edad).type(CANTIDAD+1);
+      else if(index === CANTIDAD_PERSONAS-1){
+        cy.wrap($edad).type(CANTIDAD_PERSONAS+1);
       }
       else{
-        cy.wrap($edad).type(CANTIDAD);
+        cy.wrap($edad).type(CANTIDAD_PERSONAS);
       }
     })
     cy.get('#calcular').click();
-    cy.get('#mayor-edad').should('have.text', CANTIDAD+1);
-    cy.get('#menor-edad').should('have.text', CANTIDAD-1);
-    cy.get('#promedio-edad').should('have.text', CANTIDAD);
+    cy.get('#mayor-edad').should('have.text', CANTIDAD_PERSONAS+1);
+    cy.get('#menor-edad').should('have.text', CANTIDAD_PERSONAS-1);
+    cy.get('#promedio-edad').should('have.text', CANTIDAD_PERSONAS);
   })
 
 })
