@@ -3,34 +3,71 @@
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-    <title>Page Title</title>
+    <title>Tarea 1 r/ArgentinaPrograma</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel='stylesheet' type='text/css' media='screen' href='css/tarea.css'>
 </head>
 <body>
-    <form>
-        <label for="cantidad-personas">Personas en el grupo familiar:</label>
-        <input size="15" type="number" id="cantidad-personas" placeholder="min 1 - max 100"/>
-        <button type="button" id="siguiente">Siguiente</button>
-        <button type="button" id="reiniciar">Reiniciar</button>
-        <button type="button" id="volver-a-selector">Volver a selector</button>
-    </form>
-    <div><p id="error-cantidad"></p></div>
-    <form id="personas">
-    </form>
-    <button type="button" class="oculto" id="calcular">Calcular</button><br>
-    <a class = "oculto" id="campos-incompletos">Llenar todos los campos con numeros</a><br>
-    <a class = "oculto" id="campos-decimales">Las edades no pueden tener decimales</a><br>
-
-    <div id="valores-edad" class="oculto">
-        Mayor Edad: <a id="mayor-edad"></a><br>
-        Menor Edad: <a id="menor-edad"></a><br>
-        Promedio: <a id="promedio-edad"></a><br>
+    <div class="container">
+        <h1></h1>
+        <div class="row">
+            <div class="col-7 alert alert-primary" role="alert">
+                <form>
+                    <label for="cantidad-personas">Personas en el grupo familiar:</label>
+                    <input size="15" type="number" id="cantidad-personas" placeholder="min 1 - max 100"/>
+                    <button type="button" class="btn btn-primary" id="siguiente">Siguiente</button>
+                    <button type="button" class="btn btn-danger" id="reiniciar">Reiniciar</button>
+                    <button type="button" class="btn btn-warning" id="volver-a-selector">Volver a selector</button>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="oculto" id="easter-egg">
-        <img src="img/michelin.jpeg" alt="michelin el de las cubiertas">
-        <p size="15">¡Hey! Michelin ayudante aqui</p>
-        <p size="15">No creo que tenga sentido hacer esto con una sola edad...</p>
+    <div class="container">
+        <div class="row">
+            <div class="col-2 alert alert-secondary oculto" id="contenedor-personas" role="alert">
+                <form id="personas">
+                </form>
+            </div>
+            <div class="col-3 alert alert-danger oculto" id="contenedor-error-cantidad" role="alert">
+                <div><un id="error-cantidad"></un></div>
+            </div>
+        </div>
+    </div>
+    <div class="container oculto" id="calcular">
+        <div class="row">
+            <div class="col-2 alert alert-dark" role="alert">
+                <button type="button" class="btn btn-primary">Calcular</button><br>
+            </div>
+            <div class="col-3">
+                <div class="oculto" id="easter-egg">
+                    <img src="img/michelin.jpeg" alt="michelin el de las cubiertas">
+                    <div class="alert alert-info" role="alert">
+                        <p size="15">¡Hey! Michelin ayudante aqui</p>
+                        <p size="15">No creo que tenga sentido hacer esto con una sola edad...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container oculto" id="contenedor-errores">
+        <div class="row">
+            <div class="col-3 alert alert-danger" role="alert">
+                <div class = "oculto" id="campos-incompletos">Llenar todos los campos con numeros</div>
+                <div class = "oculto" id="campos-decimales">Las edades no pueden tener decimales</div>
+            </div>
+        </div>
+    </div>
+    <div class="container oculto" id="valores-edad">
+        <div class="row">
+            <div class="col-4 alert alert-success" role="alert">
+                <div>
+                    Mayor Edad: <a id="mayor-edad"></a><br>
+                    Menor Edad: <a id="menor-edad"></a><br>
+                    Promedio: <a id="promedio-edad"></a><br>
+                </div>
+            </div>
+        </div>
     </div>
     <script src='js/tarea1.js'></script>
     <script src='js/tarea1pruebas.js'></script>

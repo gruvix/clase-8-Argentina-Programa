@@ -1,57 +1,75 @@
 
 document.querySelector("#siguiente").addEventListener("click", function () {
-    let resultado = validarInputCantidad(Number(document.querySelector("#cantidad-personas").value))
-    if(resultado != ""){
-        document.querySelector("#error-cantidad").textContent = resultado;
+    const cantidadFamiliares = Number(document.querySelector("#cantidad-personas").value)
+    let error = validarCantidadFamiliares(cantidadFamiliares)
+    if(error){
+        document.querySelector("#error-cantidad").textContent = error;
+        mostrarErrorCantidad()
         return
     }
     else{
         ocultarErrorCantidad()
     }
-    agregarInputs();
+    mostrarInputsEdades()
+    agregarInputsEdades();
 })
 document.querySelector("#calcular").addEventListener("click", function () {
-    const gente = document.querySelectorAll(".persona")
-    if(validarEdades(gente)){
-        datos = calcularValores(gente)
-        actualizarValores(datos)
+    const error = manejarErroresEdades()
+    if(!error){
+        maximoMinimoYPromedio = calcularMaximoMinimoYPromedio()
+        actualizarMaximoMinimoYPromedio(maximoMinimoYPromedio)
     }
 })
 
-document.querySelector("#reiniciar").addEventListener("click", function () {reiniciarInputs()})
+document.querySelector("#reiniciar").addEventListener("click", function () {
+    reiniciarFormulario()
+    ocultarInputsEdades()
+})
 
-let datos = {
+let maximoMinimoYPromedio = {
     'mayor-edad': 0,
     'menor-edad': 0,
     'promedio-edad': 0
 }
-
+function mostrarInputsEdades(){
+    document.querySelector("#contenedor-personas").classList.remove("oculto")
+}
+function ocultarInputsEdades(){
+    document.querySelector("#contenedor-personas").classList.add("oculto")
+}
+function mostrarErrorCantidad(){
+    document.querySelector("#contenedor-error-cantidad").classList.remove("oculto")
+}
 function ocultarErrorCantidad(){
+    document.querySelector("#contenedor-error-cantidad").classList.add("oculto")
+
     document.querySelector("#error-cantidad").textContent = ""
 }
 
-function validarInputCantidad(input){
-    if(input < 1){
+function validarCantidadFamiliares(cantidad){
+    const MIN_CANTIDAD = 1
+    const MAX_CANTIDAD = 100
+    const DECIMAL_PERMITIDO = 1
+    if(cantidad < MIN_CANTIDAD){
         return "el valor debe ser igual o mayor a 1"
     }
-    if(input >= 100){
+    if(cantidad >= MAX_CANTIDAD){
         return "el valor debe ser menor de 100"
     }
-    if(input % 1 != 0){
+    if(cantidad % DECIMAL_PERMITIDO != 0){
         return "el valor no debe tener decimales"
     }
-    return ""
 }
 
 //Agregar cuadros de entrada de edades del grupo familiar
-function agregarInputs(){
-    deshabilitarInputYSiguiente()
+function agregarInputsEdades(){
+    deshabilitarCantidadYSiguiente()
     const cantidadPersonas = document.querySelector("#cantidad-personas").value
     for (let i = 0; i < cantidadPersonas; i++) {
         const $persona = document.createElement("input")
         $persona.setAttribute("size", "12")
         $persona.setAttribute("type", "number")
-        $persona.setAttribute("class", "persona")
+        $persona.setAttribute("class", "input-group-text")
         $persona.setAttribute("placeholder", `Persona ${(i+1)}`)
         document.querySelector("#personas").appendChild($persona)
     }
@@ -60,56 +78,58 @@ function agregarInputs(){
 
 }
 
+function manejarErroresEdades(){
+    let error = false;
+    const inputsEdades = document.querySelectorAll(".input-group-text")
+    ocultarErroresEdades()
+    for (let index = 0; index < inputsEdades.length; index++) {
+        const edad = Number(inputsEdades[index].value)
+        const errorEdad = validarEdad(edad)
 
-
-function validarEdades(gente){
-    let noHayErrores = true;
-    for (let index = 0; index < gente.length; index++) {
-        const errores = validarEdad(Number(gente[index].value))
-
-        switch(errores){
+        switch(errorEdad){
             case "decimal":
                 document.querySelector("#campos-decimales").className = ""
-                noHayErrores = false;
-                gente[index].classList.add("error")
+                error = true;
+                inputsEdades[index].classList.add("error")
                 break;
             case "vacio":
                 document.querySelector("#campos-incompletos").className = ""
-                noHayErrores = false;
-                gente[index].classList.add("error")
+                error = true;
+                inputsEdades[index].classList.add("error")
                 break;
             case "":
-                gente[index].classList.remove("error")
-
+                inputsEdades[index].classList.remove("error")
+                break;
         }
     }
-    if(noHayErrores){
-        ocultarErroresEdades()
+    if(error){
+        mostrarErroresEdades()
+        ocultarValoresEdad()
     }
-    return noHayErrores
+    return error
 }
 
-function validarEdad(persona){
-    if(persona == ""){
+function validarEdad(edad){
+    const DECIMAL_PERMITIDO = 1
+    if(edad == ""){
         return "vacio"
     }
-    if(persona % 1 != 0){
+    if(edad % DECIMAL_PERMITIDO != 0){
         return "decimal"
     }
     return ""
 }
 
-//Calcula maximo minimo y promedio
-function calcularValores(gente){
-
+function calcularMaximoMinimoYPromedio(){
+    const $edades = document.querySelectorAll('.input-group-text')
     let maximo = 0;
     let minimo = 0;
     let promedio = 0;
 
-    maximo = Number(gente[0].value)
-    minimo = Number(gente[0].value)
+    maximo = Number($edades[0].value)
+    minimo = Number($edades[0].value)
     let suma = 0
-    gente.forEach(persona => {
+    $edades.forEach(persona => {
         valor = Number(persona.value)
         if(persona.value > maximo){
             maximo = valor
@@ -119,7 +139,7 @@ function calcularValores(gente){
         }
         suma += valor
     });
-    promedio = suma/gente.length
+    promedio = suma/$edades.length
     return  {
         'mayor-edad': maximo,
         'menor-edad': minimo,
@@ -127,12 +147,12 @@ function calcularValores(gente){
     }
 }
 
-function actualizarValores(datosFuncion){
-    Object.keys(datosFuncion).forEach(key => {
-        document.querySelector(`#${key}`).innerText = datosFuncion[key]
+function actualizarMaximoMinimoYPromedio(maximoMinimoYPromedio){
+    Object.keys(maximoMinimoYPromedio).forEach(key => {
+        document.querySelector(`#${key}`).innerText = maximoMinimoYPromedio[key]
     })
     ocultarErroresEdades()
-    mostrarValores()
+    mostrarMaximoMinimoYPromedio()
 }
 
 function checkForEasterEgg(valor){
@@ -140,58 +160,53 @@ function checkForEasterEgg(valor){
         mostrarEasterEgg()
     }
 }
-
 function mostrarEasterEgg(){
     document.querySelector("#easter-egg").classList.remove("oculto")
 }
-
 function ocultarEasterEgg(){
     document.querySelector("#easter-egg").classList.add("oculto")
 }
-
-function mostrarValores(){
+function mostrarMaximoMinimoYPromedio(){
     document.querySelector("#valores-edad").classList.remove("oculto")
 }
-
 function ocultarValoresEdad(){
     document.querySelector("#valores-edad").classList.add("oculto")
 }
-
+function mostrarErroresEdades(){
+    document.querySelector("#contenedor-errores").classList.remove("oculto");
+    
+}
 function ocultarErroresEdades(){
+    document.querySelector("#contenedor-errores").classList.add("oculto");
     document.querySelector("#campos-incompletos").className = "oculto"
     document.querySelector("#campos-decimales").className = "oculto"
 }
-
 function ocultarBotonCalcular(){
     document.querySelector("#calcular").classList.add("oculto")
 }
-
 function mostrarBotonCalcular(){
     document.querySelector("#calcular").classList.remove("oculto")
 }
-
-function habilitarInputYSiguiente(){
+function habilitarCantidadYSiguiente(){
     document.querySelector("#siguiente").removeAttribute("disabled")
     document.querySelector("#cantidad-personas").removeAttribute("disabled")
 }
-function deshabilitarInputYSiguiente(){
+function deshabilitarCantidadYSiguiente(){
     document.querySelector("#siguiente").setAttribute("disabled", "disabled")
     document.querySelector("#cantidad-personas").setAttribute("disabled", "disabled")
 }
 
-//reinicia el formulario de edades
-function reiniciarInputs(){
-    document.querySelectorAll(".persona").forEach(persona => {
+function reiniciarFormulario(){
+    document.querySelectorAll(".input-group-text").forEach(persona => {
         persona.remove()
     });
     ocultarBotonCalcular()
     ocultarEasterEgg()
-    habilitarInputYSiguiente()
+    habilitarCantidadYSiguiente()
     ocultarValoresEdad()
     ocultarErroresEdades();
     ocultarErrorCantidad();
 }
-
 
 //funcion con boton de volver a menu de seleccion
 const $botonVolverASelector = document.querySelector("#volver-a-selector")
@@ -199,7 +214,6 @@ $botonVolverASelector.addEventListener("click", volverASelector)
 function volverASelector(){
     window.location = "index.html"
 }
-
 
 /*
 TAREA: Empezar preguntando cuánta gente hay en el grupo familiar.
